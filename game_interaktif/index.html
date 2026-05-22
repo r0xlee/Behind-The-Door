@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Behind The Door</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============================================================
+       NOISE / SCANLINE OVERLAYS
+  ============================================================ -->
+  <div id="noise-overlay"></div>
+  <div id="scanlines"></div>
+  <div id="vignette"></div>
+
+  <!-- ============================================================
+       MAIN MENU SCREEN
+  ============================================================ -->
+  <div id="screen-menu" class="screen active">
+    <div class="menu-bg"></div>
+    <div class="menu-content">
+      <div class="title-block">
+        <p class="title-eyebrow">A PSYCHOLOGICAL HORROR EXPERIENCE</p>
+        <h1 class="game-title">BEHIND<br/><span class="title-accent">THE DOOR</span></h1>
+        <div class="title-line"></div>
+      </div>
+      <nav class="main-nav">
+        <button class="menu-btn" id="btn-start">
+          <span class="btn-icon">▶</span> START GAME
+        </button>
+        <button class="menu-btn" id="btn-howto">
+          <span class="btn-icon">?</span> HOW TO PLAY
+        </button>
+        <button class="menu-btn" id="btn-credits">
+          <span class="btn-icon">★</span> CREDITS
+        </button>
+        <button class="menu-btn menu-btn--danger" id="btn-exit">
+          <span class="btn-icon">✕</span> EXIT
+        </button>
+      </nav>
+      <p class="menu-footer">⚠ HEADPHONES RECOMMENDED &nbsp;|&nbsp; VIEWER DISCRETION ADVISED</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HOW TO PLAY SCREEN
+  ============================================================ -->
+  <div id="screen-howto" class="screen modal-screen">
+    <div class="modal-box">
+      <h2 class="modal-title">HOW TO PLAY</h2>
+      <div class="modal-body">
+        <div class="howto-item">
+          <span class="howto-icon">📖</span>
+          <div>
+            <strong>Read the Story</strong>
+            <p>Each scene presents a narrative. Wait for the text to finish typing or click to skip.</p>
+          </div>
+        </div>
+        <div class="howto-item">
+          <span class="howto-icon">🔘</span>
+          <div>
+            <strong>Make Choices</strong>
+            <p>Select from available choices. Each decision shapes your fate and changes the story.</p>
+          </div>
+        </div>
+        <div class="howto-item">
+          <span class="howto-icon">💾</span>
+          <div>
+            <strong>Progress Saved</strong>
+            <p>Your progress is automatically saved. Resume anytime from the main menu.</p>
+          </div>
+        </div>
+        <div class="howto-item">
+          <span class="howto-icon">🎧</span>
+          <div>
+            <strong>Use Headphones</strong>
+            <p>Audio is a core part of the experience. Headphones strongly recommended.</p>
+          </div>
+        </div>
+        <div class="howto-item">
+          <span class="howto-icon">⏸</span>
+          <div>
+            <strong>Pause Anytime</strong>
+            <p>Press <kbd>ESC</kbd> or the pause button during gameplay to open the pause menu.</p>
+          </div>
+        </div>
+      </div>
+      <button class="modal-back-btn" data-target="menu">← BACK</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CREDITS SCREEN
+  ============================================================ -->
+  <div id="screen-credits" class="screen modal-screen">
+    <div class="modal-box">
+      <h2 class="modal-title">CREDITS</h2>
+      <div class="modal-body credits-body">
+        <div class="credit-block">
+          <p class="credit-role">CONCEPT &amp; DESIGN</p>
+          <p class="credit-name">Multimedia Team</p>
+        </div>
+        <div class="credit-block">
+          <p class="credit-role">STORY &amp; NARRATIVE</p>
+          <p class="credit-name">Multimedia Team</p>
+        </div>
+        <div class="credit-block">
+          <p class="credit-role">PROGRAMMING</p>
+          <p class="credit-name">Multimedia Team</p>
+        </div>
+        <div class="credit-block">
+          <p class="credit-role">AUDIO &amp; SOUND FX</p>
+          <p class="credit-name">Web Audio API</p>
+        </div>
+        <div class="credit-block">
+          <p class="credit-role">FONTS</p>
+          <p class="credit-name">Google Fonts — Cinzel Decorative, Crimson Text, Share Tech Mono</p>
+        </div>
+        <div class="credit-block">
+          <p class="credit-role">SPECIAL THANKS</p>
+          <p class="credit-name">Everyone brave enough to open the door.</p>
+        </div>
+        <p class="credit-warning">⚠ This game contains psychological horror themes, flickering lights,<br/>and sudden audio cues. Play at your own risk.</p>
+      </div>
+      <button class="modal-back-btn" data-target="menu">← BACK</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GAME SCREEN
+  ============================================================ -->
+  <div id="screen-game" class="screen">
+
+    <!-- Scene background layer -->
+    <div id="scene-bg" class="scene-bg"></div>
+    <div id="scene-bg-overlay" class="scene-bg-overlay"></div>
+
+    <!-- HUD -->
+    <div class="game-hud">
+      <div class="hud-left">
+        <span class="hud-chapter" id="hud-chapter">CHAPTER I</span>
+      </div>
+      <div class="hud-center">
+        <span class="hud-title-small">BEHIND THE DOOR</span>
+      </div>
+      <div class="hud-right">
+        <button class="hud-btn" id="btn-mute" title="Toggle Sound">🔊</button>
+        <button class="hud-btn" id="btn-pause" title="Pause (ESC)">⏸</button>
+      </div>
+    </div>
+
+    <!-- Dialogue box -->
+    <div class="game-dialogue-wrap" id="dialogue-wrap">
+      <div class="game-dialogue" id="dialogue-box">
+        <div class="dialogue-speaker" id="dialogue-speaker"></div>
+        <div class="dialogue-text" id="dialogue-text"></div>
+        <div class="dialogue-continue" id="dialogue-continue">▼ click to continue</div>
+      </div>
+    </div>
+
+    <!-- Choice panel -->
+    <div class="game-choices" id="choice-panel">
+      <p class="choice-prompt">WHAT DO YOU DO?</p>
+      <div class="choice-buttons" id="choice-buttons"></div>
+    </div>
+
+    <!-- Jumpscare flash layer -->
+    <div id="jumpscare-layer" class="jumpscare-layer"></div>
+
+    <!-- Glitch overlay -->
+    <div id="glitch-overlay" class="glitch-overlay"></div>
+
+    <!-- Flicker overlay -->
+    <div id="flicker-overlay" class="flicker-overlay"></div>
+
+  </div>
+
+  <!-- ============================================================
+       PAUSE MENU SCREEN (overlay)
+  ============================================================ -->
+  <div id="screen-pause" class="screen overlay-screen">
+    <div class="pause-box">
+      <h2 class="pause-title">⏸ PAUSED</h2>
+      <button class="menu-btn" id="btn-resume">▶ RESUME</button>
+      <button class="menu-btn" id="btn-restart-pause">↺ RESTART</button>
+      <button class="menu-btn menu-btn--danger" id="btn-main-menu-pause">⌂ MAIN MENU</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ENDING SCREEN
+  ============================================================ -->
+  <div id="screen-ending" class="screen">
+    <div class="ending-content">
+      <div class="ending-badge" id="ending-badge">ENDING</div>
+      <h2 class="ending-title" id="ending-title"></h2>
+      <p class="ending-desc" id="ending-desc"></p>
+      <div class="ending-actions">
+        <button class="menu-btn" id="btn-play-again">↺ PLAY AGAIN</button>
+        <button class="menu-btn" id="btn-main-menu-ending">⌂ MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
